@@ -1,0 +1,334 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Message for you</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<h2 class="question">You like me?</h2>
+
+<img class="gif" alt="gif" src="https://raw.githubusercontent.com/DzarelDeveloper/Img/main/gifyou.webp">
+
+<div class="btn-group">
+    <button class="yes-btn">Yes</button>
+    <button class="no-btn">No</button>
+</div>
+
+<div class="special-message" style="display: none;"></div>
+
+<div class="memory-gallery" style="display: none;">
+    <img src="bucin/Cung" alt="memory photo 1">
+    <img src="https://raw.githubusercontent.com/DzarelDeveloper/Img/main/photo2.jpg" alt="memory photo 2">
+    <img src="https://raw.githubusercontent.com/DzarelDeveloper/Img/main/photo3.jpg" alt="memory photo 3">
+    <img src="bu.png" alt="memory photo 1">
+    <img src="https://raw.githubusercontent.com/DzarelDeveloper/Img/main/photo2.jpg" alt="memory photo 2">
+    <img src="https://raw.githubusercontent.com/DzarelDeveloper/Img/main/photo3.jpg" alt="memory photo 3">
+</div>
+
+
+<div class="arrow" style="display: none;">
+    <button class="next-btn"> Next</button>
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+<style>
+    * {
+        margin: 10;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: whitesmoke;
+        font-family: Verdana, bold, Tahoma, sans-serif;
+    }
+    
+    .wrapper {
+        text-align: center;
+        position: relative;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+    
+    .wrapper.show {
+        opacity: 1;
+    }
+    
+    .gif {
+        height: 100%;
+        width: 100%;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+        color: #e94d58;
+        margin: 10px 0;
+    }
+    
+    
+    .btn-group {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+    }
+    
+    .btn-group button {
+        width: 150px;
+        height: inherit;
+        color: white;
+        font-size: 1.2em;
+        border-radius: 30px;
+        outline: none;
+        cursor: pointer;
+        box-shadow: 0 2px 4px gray;
+        border: 2px solid #e94d58;
+    }
+    
+    .btn-group .yes-btn {
+        background: #e94d58;
+    }
+    
+    .btn-group .no-btn {
+        background: white;
+        color: #e94d58;
+    }
+
+    .special-message {
+        margin-top: 20px;
+        font-size: 1.2em;
+        color: #222222;
+        animation: fadeInUp 0.5s ease-out forwards;
+    }
+
+    .memory-gallery {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .memory-gallery img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px gray;
+    }
+
+    .arrow {
+        margin-top: 10px;
+    }
+    
+    .arrow .next-btn {
+        background: #e94d58;
+        color: white;
+        font-size: 1em;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 20px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px gray;
+    }
+    
+  .speaker-btn {
+    position: absolute;
+    top: 10px; /* Jarak dari atas */
+    left: 10px; /* Jarak dari kiri */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    z-index: 10; /* Menentukan urutan tumpukan */
+  }
+  .speaker-icon {
+    width: 30px;
+    height: 30px;
+    fill: #666; /* Warna ikon speaker */
+    transition: fill 0.3s ease; /* Transisi untuk perubahan warna ikon */
+  }
+
+    .speaker-icon.playing {
+        fill: #ff3366; /* Warna ikon saat audio sedang diputar */
+    }
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(-60px);
+        }
+</style>
+
+  <audio id="backgroundAudio" loop>
+    <source src="Her/Y2meta.app - d4vd - Here with me (slowed + reverb) (128 kbps).mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+<button class="speaker-btn" onclick="toggleAudio()">
+    <svg class="speaker-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M3 9v6h4l5 5V4l-5 5H3zm13.5 3c0 1.47-.65 2.79-1.68 3.7l1.43 1.43C17.38 15.52 18 13.87 18 12s-.62-3.52-1.68-4.7l-1.43 1.43c1.03.91 1.68 2.23 1.68 3.7zM14 3.23v2.06c1.93.52 3.5 1.92 4.27 3.77l1.54-.9C19.63 5.78 17.07 4.42 14 3.23zm-9.82 3.7L3.75 7.37C2.62 8.28 2 9.63 2 11s.62 2.72 1.68 3.7l1.43-1.43c-1.03-.91-1.68-2.23-1.68-3.7zM10 9.42v5.16L7.53 12 10 9.42zm-3 1.42L4.53 12 7 14.58V10.84z"/>
+    </svg>
+</button>
+  
+<script>
+    var backgroundAudio = document.getElementById('backgroundAudio');
+    var speakerIcon = document.querySelector('.speaker-icon');
+
+    function toggleAudio() {
+        if (backgroundAudio.paused) {
+            backgroundAudio.play();
+            speakerIcon.classList.add('playing');
+        } else {
+            backgroundAudio.pause();
+            speakerIcon.classList.remove('playing');
+        }
+    }
+
+    const wrapper = document.querySelector(".wrapper");
+    const question = document.querySelector(".question");
+    const gif = document.querySelector(".gif");
+    const yesBtn = document.querySelector(".yes-btn");
+    const noBtn = document.querySelector(".no-btn");
+    const nextBtn = document.querySelector(".next-btn");
+    const specialMessage = document.querySelector(".special-message");
+    const memoryGallery = document.querySelector(".memory-gallery");
+    const arrow = document.querySelector(".arrow");
+    
+    let slideIndex = 0;
+    const slides = [
+        {
+            question: "You like me?",
+            gif: "https://raw.githubusercontent.com/DzarelDeveloper/Img/main/gifyou.webp",
+            backgroundColor: "whitesmoke",
+            questionColor: "#e94d58",
+            message: "",
+            showMemoryGallery: false
+        },
+        {
+            question: "Pesan Khusus Untuk Mu!",
+            gif: "",
+            backgroundColor: "#f0f8ff",
+            questionColor: "#4a90e2",
+            message: "Setiap kali matahari terbenam, aku merindukan senyumanmu yang memancar seperti warna-warna magis di langit. Kamu membuat hatiku selalu penuh cinta",
+            showMemoryGallery: false
+        },
+        {
+            question: "Kenangan Kita",
+            gif: "",
+            backgroundColor: "#fffde7",
+            questionColor: "#fbc02d",
+            message: "Lucu ya kita dulu",
+            showMemoryGallery: true
+        },
+        
+        {
+    question: "Last Message for You",
+    gif: "",
+    backgroundColor: "#ffebee",
+    questionColor: "#d32f2f",
+    message: "Terima kasih pernah mengisi hari-hariku dengan tawa dan cinta. Bersamamu adalah anugerah terindah yang pernah kuterima. Semoga kita bisa sama-sama kek dulu lagi ❤️",
+    showMemoryGallery: false
+},
+  {
+        question: "I love you more N❤️🤗",
+        gif: "",
+        backgroundColor: "#ffe4e1",
+        questionColor: "#d32f2f",
+        message: "",
+        showMemoryGallery: false
+    }
+    
+    ];
+
+    yesBtn.addEventListener("click", () => {
+        question.innerHTML = "Aaaaa, I like you too";
+        gif.src = "https://raw.githubusercontent.com/DzarelDeveloper/Img/main/gif.webp";
+        noBtn.style.display = "none";
+        yesBtn.style.display = "none";
+        arrow.style.display = "block"; // Show the next button
+    });
+
+    noBtn.addEventListener("mouseover", () => {
+        const noBtnRect = noBtn.getBoundingClientRect();
+        const maxX = window.innerWidth - noBtnRect.width;
+        const maxY = window.innerHeight - noBtnRect.height;
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        noBtn.style.position = 'absolute'; // Ensure the button can be positioned absolutely
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
+    });
+
+    nextBtn.addEventListener("click", () => {
+        slideIndex++;
+        if (slideIndex >= slides.length) {
+            arrow.style.display = "none"; // Hide the next button if last slide
+            return;
+        }
+        const slide = slides[slideIndex];
+        wrapper.classList.remove("show");
+        setTimeout(() => {
+            question.innerHTML = slide.question;
+            gif.src = slide.gif;
+            document.body.style.backgroundColor = slide.backgroundColor;
+            question.style.color = slide.questionColor;
+
+            // Update the special message
+            specialMessage.innerHTML = slide.message;
+            specialMessage.style.display = slide.message ? "block" : "none";
+
+            // Show or hide the memory gallery
+            memoryGallery.style.display = slide.showMemoryGallery ? "flex" : "none";
+
+            // Hide the gif and buttons when the next button is clicked
+            gif.style.display = slide.showMemoryGallery ? "none" : "block";
+            yesBtn.style.display = "none";
+            noBtn.style.display = "none";
+            gif.style.display = "none";
+            
+ if (slideIndex === slides.length - 2) {
+            nextBtn.innerHTML = "I love you";
+        } else if (slideIndex === slides.length - 1) {
+            nextBtn.style.display = "none"; // Hide the next button on the final slide
+        } else {
+            nextBtn.innerHTML = "Next";
+        }
+            wrapper.classList.add("show");
+        }, 1000); // This matches the CSS transition duration
+    });
+
+    window.onload = () => {
+        wrapper.classList.add("show");
+    };
+</script>
+
+
+</body>
+
+</html>
